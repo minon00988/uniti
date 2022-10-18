@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float moveForce = 25;
+    public float jumpForce = 50;
+    public Rigidbody2D playerRb;
+    public bool isGrounded = false;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.D))
+          {
+            playerRb.AddForce(Vector2.right * moveForce);
+          }
+        if (Input.GetKey(KeyCode.Space))
+          {
+            playerRb.AddForce(Vector2.up * jumpForce);
+            isGrounded = false;
+          }
+          
+          if (Input.GetKey(KeyCode.A))
+          {
+            playerRb.AddForce(Vector2.left * moveForce);
+          }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            isGrounded = true;
+    }
+}
